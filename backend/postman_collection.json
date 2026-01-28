@@ -1,0 +1,642 @@
+{
+    "info": {
+        "name": "Royal Bricks API",
+        "description": "Complete API collection for Royal Bricks backend with real MongoDB ObjectIds",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:5000/api",
+            "type": "string"
+        },
+        {
+            "key": "token",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "bookingId",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "queryId",
+            "value": "",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    const response = pm.response.json();",
+                                    "    pm.collectionVariables.set('token', response.data.token);",
+                                    "    console.log('✅ Token saved:', response.data.token);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"akuph95@gmail.com\",\n  \"password\": \"royal@123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/auth/login",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        },
+                        "description": "Login with admin credentials. Token will be automatically saved."
+                    }
+                },
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/auth/me",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "me"
+                            ]
+                        },
+                        "description": "Get currently logged in user details"
+                    }
+                },
+                {
+                    "name": "Update Password",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"currentPassword\": \"royal@123\",\n  \"newPassword\": \"NewPassword@123\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/auth/update-password",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "update-password"
+                            ]
+                        },
+                        "description": "Update user password"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Bookings",
+            "item": [
+                {
+                    "name": "Create Booking",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 201) {",
+                                    "    const response = pm.response.json();",
+                                    "    pm.collectionVariables.set('bookingId', response.data.booking._id);",
+                                    "    console.log('✅ Booking created with ID:', response.data.booking._id);",
+                                    "    console.log('📋 Booking Number:', response.data.booking.bookingNumber);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"customerName\": \"Rajesh Kumar\",\n  \"phone\": \"+91 9876543210\",\n  \"email\": \"rajesh@example.com\",\n  \"brickType\": \"first-class\",\n  \"quantity\": 5000,\n  \"deliveryAddress\": \"123 Main Street, Kankarbagh, Patna\",\n  \"area\": \"Kankarbagh\",\n  \"city\": \"Patna\",\n  \"state\": \"Bihar\",\n  \"pincode\": \"800020\",\n  \"totalAmount\": 50000,\n  \"specialInstructions\": \"Please deliver before 5 PM\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/bookings",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "bookings"
+                            ]
+                        },
+                        "description": "Create a new booking. Booking ID will be automatically saved for use in other requests."
+                    }
+                },
+                {
+                    "name": "Get All Bookings",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/bookings?page=1&limit=20",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "bookings"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "20"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "pending",
+                                    "disabled": true,
+                                    "description": "Filter by status"
+                                },
+                                {
+                                    "key": "area",
+                                    "value": "Patna",
+                                    "disabled": true,
+                                    "description": "Filter by area"
+                                },
+                                {
+                                    "key": "city",
+                                    "value": "Patna",
+                                    "disabled": true,
+                                    "description": "Filter by city"
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "Rajesh",
+                                    "disabled": true,
+                                    "description": "Search in name, phone, email, booking number"
+                                },
+                                {
+                                    "key": "fromDate",
+                                    "value": "2026-01-01",
+                                    "disabled": true,
+                                    "description": "Start date (YYYY-MM-DD)"
+                                },
+                                {
+                                    "key": "toDate",
+                                    "value": "2026-01-31",
+                                    "disabled": true,
+                                    "description": "End date (YYYY-MM-DD)"
+                                }
+                            ]
+                        },
+                        "description": "Get all bookings with optional filters. Admin only."
+                    }
+                },
+                {
+                    "name": "Get Single Booking",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/bookings/{{bookingId}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "bookings",
+                                "{{bookingId}}"
+                            ]
+                        },
+                        "description": "Get single booking by ID. Uses the bookingId saved from Create Booking request."
+                    }
+                },
+                {
+                    "name": "Update Booking",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"status\": \"confirmed\",\n  \"totalAmount\": 50000,\n  \"deliveryDate\": \"2026-02-15\",\n  \"adminNotes\": \"Priority order - Customer needs urgent delivery\",\n  \"paymentStatus\": \"partial\",\n  \"paidAmount\": 25000\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/bookings/{{bookingId}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "bookings",
+                                "{{bookingId}}"
+                            ]
+                        },
+                        "description": "Update booking details. Uses the bookingId saved from Create Booking request."
+                    }
+                },
+                {
+                    "name": "Delete Booking",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/bookings/{{bookingId}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "bookings",
+                                "{{bookingId}}"
+                            ]
+                        },
+                        "description": "Delete a booking. Uses the bookingId saved from Create Booking request."
+                    }
+                },
+                {
+                    "name": "Get Booking Statistics",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/bookings/stats/overview",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "bookings",
+                                "stats",
+                                "overview"
+                            ],
+                            "query": [
+                                {
+                                    "key": "fromDate",
+                                    "value": "2026-01-01",
+                                    "disabled": true,
+                                    "description": "Start date (YYYY-MM-DD)"
+                                },
+                                {
+                                    "key": "toDate",
+                                    "value": "2026-01-31",
+                                    "disabled": true,
+                                    "description": "End date (YYYY-MM-DD)"
+                                }
+                            ]
+                        },
+                        "description": "Get comprehensive booking statistics including revenue, status breakdown, area analysis, and trends."
+                    }
+                },
+                {
+                    "name": "Get Revenue by Area",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/bookings/stats/revenue-by-area?limit=10",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "bookings",
+                                "stats",
+                                "revenue-by-area"
+                            ],
+                            "query": [
+                                {
+                                    "key": "limit",
+                                    "value": "10",
+                                    "description": "Number of top areas to return"
+                                },
+                                {
+                                    "key": "fromDate",
+                                    "value": "2026-01-01",
+                                    "disabled": true,
+                                    "description": "Start date (YYYY-MM-DD)"
+                                },
+                                {
+                                    "key": "toDate",
+                                    "value": "2026-01-31",
+                                    "disabled": true,
+                                    "description": "End date (YYYY-MM-DD)"
+                                }
+                            ]
+                        },
+                        "description": "Get revenue breakdown by area. Shows which areas generate the most income."
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Contact Queries",
+            "item": [
+                {
+                    "name": "Create Query",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 201) {",
+                                    "    const response = pm.response.json();",
+                                    "    pm.collectionVariables.set('queryId', response.data.query._id);",
+                                    "    console.log('✅ Query created with ID:', response.data.query._id);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Amit Singh\",\n  \"email\": \"amit@example.com\",\n  \"phone\": \"+91 9876543210\",\n  \"subject\": \"Bulk Order Inquiry\",\n  \"message\": \"I need 50,000 first-class bricks for a construction project in Boring Road area. Please provide quote and delivery timeline.\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/queries",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "queries"
+                            ]
+                        },
+                        "description": "Create a new contact query. Query ID will be automatically saved."
+                    }
+                },
+                {
+                    "name": "Get All Queries",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/queries?page=1&limit=20",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "queries"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "20"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "new",
+                                    "disabled": true,
+                                    "description": "Filter by status (new/in_progress/resolved)"
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "Amit",
+                                    "disabled": true,
+                                    "description": "Search in name, email, subject, message"
+                                }
+                            ]
+                        },
+                        "description": "Get all contact queries with optional filters. Admin only."
+                    }
+                },
+                {
+                    "name": "Get Single Query",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/queries/{{queryId}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "queries",
+                                "{{queryId}}"
+                            ]
+                        },
+                        "description": "Get single query by ID. Uses the queryId saved from Create Query request."
+                    }
+                },
+                {
+                    "name": "Update Query",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"status\": \"in_progress\",\n  \"adminNotes\": \"Called customer. Preparing quote for 50,000 bricks. Will send by email today.\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/queries/{{queryId}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "queries",
+                                "{{queryId}}"
+                            ]
+                        },
+                        "description": "Update query status and add admin notes. Uses the queryId saved from Create Query request."
+                    }
+                },
+                {
+                    "name": "Delete Query",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/queries/{{queryId}}",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "queries",
+                                "{{queryId}}"
+                            ]
+                        },
+                        "description": "Delete a query. Uses the queryId saved from Create Query request."
+                    }
+                },
+                {
+                    "name": "Get Query Statistics",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/queries/stats/overview",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "queries",
+                                "stats",
+                                "overview"
+                            ],
+                            "query": [
+                                {
+                                    "key": "fromDate",
+                                    "value": "2026-01-01",
+                                    "disabled": true,
+                                    "description": "Start date (YYYY-MM-DD)"
+                                },
+                                {
+                                    "key": "toDate",
+                                    "value": "2026-01-31",
+                                    "disabled": true,
+                                    "description": "End date (YYYY-MM-DD)"
+                                }
+                            ]
+                        },
+                        "description": "Get query statistics including status breakdown and resolution times."
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Health Check",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:5000/health",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "health"
+                    ]
+                },
+                "description": "Check if the server is running"
+            }
+        }
+    ]
+}
