@@ -122,3 +122,8 @@ Thumbs.db
 dist/
 booking-system/
 qa-reports/
+*.md
+.env*
+.DS_Store
+.idea/
+lint-output.txt
