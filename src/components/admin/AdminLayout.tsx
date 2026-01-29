@@ -47,6 +47,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/admin' },
     { icon: Package, label: 'Bookings', path: '/admin/bookings' },
+    { icon: Package, label: 'Products', path: '/admin/products' },
     { icon: MessageSquare, label: 'Queries', path: '/admin/queries' },
     { icon: FileText, label: 'Reports & ITR', path: '/admin/reports' },
   ];

@@ -13,6 +13,7 @@ import { errorHandler, notFound } from './middleware/errorHandler.js';
 import authRoutes from './routes/authRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
 import queryRoutes from './routes/queryRoutes.js';
+import productRoutes from './routes/productRoutes.js';
 
 // Load environment variables
 dotenv.config();
@@ -75,6 +76,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/queries', queryRoutes);
+app.use('/api/products', productRoutes);
 
 // Root route
 app.get('/', (req, res) => {
@@ -86,6 +88,7 @@ app.get('/', (req, res) => {
             auth: '/api/auth',
             bookings: '/api/bookings',
             queries: '/api/queries',
+            products: '/api/products',
             health: '/health'
         }
     });

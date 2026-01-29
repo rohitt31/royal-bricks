@@ -74,3 +74,6 @@ export const restrictTo = (...roles) => {
         next();
     };
 };
+
+// Convenience middleware for admin-only routes
+export const adminOnly = restrictTo('admin');
