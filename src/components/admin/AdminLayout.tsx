@@ -11,7 +11,6 @@ import {
   FileText,
   User
 } from 'lucide-react';
-import { useState as useStateHook } from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import {

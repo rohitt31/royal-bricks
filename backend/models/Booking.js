@@ -23,13 +23,13 @@ const bookingSchema = new mongoose.Schema({
     },
     brickType: {
         type: String,
-        required: [true, 'Brick type is required'],
-        enum: ['first-class', 'second-class', 'fly-ash']
+        required: [true, 'Brick type is required']
+        // Enum removed to support dynamic products
     },
     quantity: {
         type: Number,
         required: [true, 'Quantity is required'],
-        min: [1000, 'Minimum order is 1000 bricks']
+        min: [1, 'Minimum order is 1 unit']
     },
     deliveryAddress: {
         type: String,

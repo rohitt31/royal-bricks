@@ -83,6 +83,7 @@ export const bookingsAPI = {
         limit?: number;
         fromDate?: string;
         toDate?: string;
+        sortBy?: string;
     }) => {
         const queryParams = new URLSearchParams();
         if (params) {
@@ -198,5 +199,41 @@ export const queriesAPI = {
         }
         const query = queryParams.toString();
         return await apiRequest(`/queries/stats/overview${query ? `?${query}` : ''}`);
+    },
+};
+
+// Generic API object for flexible CRUD operations
+export const api = {
+    get: async (endpoint: string) => {
+        return await apiRequest(endpoint, {
+            method: 'GET',
+        });
+    },
+
+    post: async (endpoint: string, data?: any) => {
+        return await apiRequest(endpoint, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    },
+
+    put: async (endpoint: string, data?: any) => {
+        return await apiRequest(endpoint, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+        });
+    },
+
+    patch: async (endpoint: string, data?: any) => {
+        return await apiRequest(endpoint, {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+        });
+    },
+
+    delete: async (endpoint: string) => {
+        return await apiRequest(endpoint, {
+            method: 'DELETE',
+        });
     },
 };

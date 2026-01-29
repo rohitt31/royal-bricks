@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Package, MessageSquare, Clock, CheckCircle, TrendingUp, AlertCircle, IndianRupee, MapPin } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AdminLayout from '@/components/admin/AdminLayout';
@@ -131,6 +132,26 @@ const Dashboard = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleCardClick = (title: string) => {
+    switch (title) {
+      case 'Total Bookings':
+      case 'Pending Orders':
+      case 'Confirmed Orders':
+        navigate('/admin/bookings');
+        break;
+      case 'Total Revenue':
+        navigate('/admin/reports');
+        break;
+      case 'New Queries':
+        navigate('/admin/queries');
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="space-y-8">
@@ -143,7 +164,11 @@ const Dashboard = () => {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {statCards.map((stat, index) => (
-            <Card key={index} className="hover:shadow-xl transition-all duration-300 border-2 hover:scale-105">
+            <Card
+              key={index}
+              className="hover:shadow-xl transition-all duration-300 border-2 hover:scale-105 cursor-pointer"
+              onClick={() => handleCardClick(stat.title)}
+            >
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>

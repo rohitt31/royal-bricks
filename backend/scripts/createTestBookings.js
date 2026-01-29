@@ -1,114 +1,111 @@
-// Test script to create bookings directly in MongoDB
 import mongoose from 'mongoose';
 import Booking from '../models/Booking.js';
+import Product from '../models/Product.js';
+import User from '../models/User.js';
 import dotenv from 'dotenv';
+import connectDB from '../config/database.js';
 
 dotenv.config();
 
-const testBookings = [
-    {
-        customerName: "Rajesh Kumar",
-        phone: "+91 9876543210",
-        email: "rajesh.kumar@example.com",
-        brickType: "first-class",
-        quantity: 5000,
-        deliveryAddress: "Plot No 45, Kankarbagh Main Road, Near SBI Bank",
-        area: "Kankarbagh",
-        city: "Patna",
-        state: "Bihar",
-        pincode: "800020",
-        totalAmount: 50000,
-        specialInstructions: "Please deliver between 9 AM to 5 PM"
-    },
-    {
-        customerName: "Priya Sharma",
-        phone: "+91 8765432109",
-        email: "priya.sharma@gmail.com",
-        brickType: "second-class",
-        quantity: 10000,
-        deliveryAddress: "House No 23, Boring Road, Opposite Patna College",
-        area: "Boring Road",
-        city: "Patna",
-        state: "Bihar",
-        pincode: "800001",
-        totalAmount: 80000,
-        specialInstructions: "Need urgent delivery"
-    },
-    {
-        customerName: "Amit Singh",
-        phone: "+91 7654321098",
-        brickType: "fly-ash",
-        quantity: 15000,
-        deliveryAddress: "Sector 5, Kankarbagh Colony, Near Water Tank",
-        area: "Kankarbagh",
-        city: "Patna",
-        state: "Bihar",
-        pincode: "800020",
-        totalAmount: 105000
-    },
-    {
-        customerName: "Sunita Devi",
-        phone: "+91 9988776655",
-        email: "sunita.devi@yahoo.com",
-        brickType: "first-class",
-        quantity: 8000,
-        deliveryAddress: "Gandhi Maidan Road, Near Collectorate",
-        area: "Gandhi Maidan",
-        city: "Patna",
-        state: "Bihar",
-        pincode: "800004",
-        totalAmount: 80000
-    },
-    {
-        customerName: "Vikram Jha",
-        phone: "+91 8877665544",
-        brickType: "second-class",
-        quantity: 12000,
-        deliveryAddress: "Patna University Campus, Ashok Rajpath",
-        area: "Ashok Rajpath",
-        city: "Patna",
-        state: "Bihar",
-        pincode: "800005",
-        totalAmount: 96000,
-        specialInstructions: "Contact before delivery"
-    }
+// Helper to get random item from array
+const random = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+// Helper to generate random date within last 30 days
+const randomDate = () => {
+    const end = new Date();
+    const start = new Date(end.getTime() - 30 * 24 * 60 * 60 * 1000); // 30 days ago
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+};
+
+const areas = ["Kankarbagh", "Boring Road", "Patliputra", "Danapur", "Phulwari Sharif", "Gandhi Maidan"];
+const statuses = ['pending', 'confirmed', 'in_production', 'ready', 'delivered'];
+
+const customers = [
+    { name: "Rajesh Kumar", phone: "+91 9876543210", email: "rajesh@example.com" },
+    { name: "Priya Sharma", phone: "+91 8765432109", email: "priya@example.com" },
+    { name: "Amit Singh", phone: "+91 7654321098", email: "amit@example.com" },
+    { name: "Sunita Devi", phone: "+91 9988776655", email: "sunita@example.com" },
+    { name: "Vikram Jha", phone: "+91 8877665544", email: "vikram@example.com" },
+    { name: "Suresh Patel", phone: "+91 7766554433", email: "suresh@example.com" }
 ];
 
-async function createTestBookings() {
+async function createRealtimeBookings() {
     try {
-        // Connect to MongoDB
-        await mongoose.connect(process.env.MONGODB_URI);
-        console.log('✅ Connected to MongoDB');
+        await connectDB();
 
-        // Clear existing bookings (optional - comment out if you want to keep existing data)
-        // await Booking.deleteMany({});
-        // console.log('🗑️  Cleared existing bookings');
-
-        // Create test bookings
-        console.log('\n📝 Creating test bookings...\n');
-
-        for (const bookingData of testBookings) {
-            const booking = await Booking.create(bookingData);
-            console.log(`✅ Created: ${booking.bookingNumber} - ${booking.customerName} (₹${booking.totalAmount.toLocaleString()})`);
+        // 1. Get Admin User
+        const admin = await User.findOne({ role: 'admin' });
+        if (!admin) {
+            throw new Error('No admin user found. Please run seedAdmin.js first.');
         }
 
-        console.log(`\n🎉 Successfully created ${testBookings.length} test bookings!`);
+        // 2. Get Real Products
+        const products = await Product.find({});
+        if (products.length === 0) {
+            throw new Error('No products found. Please run seedProducts.js first.');
+        }
 
-        // Display summary
-        const total = await Booking.countDocuments();
-        const totalRevenue = await Booking.aggregate([
-            { $group: { _id: null, total: { $sum: '$totalAmount' } } }
-        ]);
+        console.log(`✅ Loaded ${products.length} real products`);
 
-        console.log('\n📊 Summary:');
-        console.log(`Total Bookings: ${total}`);
-        console.log(`Total Revenue: ₹${(totalRevenue[0]?.total || 0).toLocaleString()}`);
+        // 3. Clear existing bookings
+        await Booking.deleteMany({});
+        console.log('🗑️  Cleared existing bookings');
+
+        // 4. Create New Dynamic Bookings
+        const bookings = [];
+        const date = new Date();
+        const year = date.getFullYear().toString().slice(-2);
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+
+        for (let i = 0; i < 15; i++) {
+            const customer = random(customers);
+            const product = random(products);
+            const area = random(areas);
+            const quantity = product.unit === 'bag' ? Math.floor(Math.random() * 50) + 50 : Math.floor(Math.random() * 5000) + 1000;
+            const totalAmount = quantity * product.price;
+            const status = random(statuses);
+
+            // Payment logic based on status
+            let paymentStatus = 'pending';
+            let paidAmount = 0;
+            if (status === 'delivered') {
+                paymentStatus = 'paid';
+                paidAmount = totalAmount;
+            } else if (status === 'confirmed' || status === 'in_production') {
+                paymentStatus = 'partial';
+                paidAmount = Math.floor(totalAmount * 0.3); // 30% advance
+            }
+
+            bookings.push({
+                bookingNumber: `RB${year}${month}${(i + 1).toString().padStart(4, '0')}`,
+                customerName: customer.name,
+                phone: customer.phone,
+                email: customer.email,
+                brickType: product.slug, // Use real product slug
+                quantity: quantity,
+                deliveryAddress: `House No ${Math.floor(Math.random() * 100)}, ${area}, Patna`,
+                area: area,
+                city: "Patna",
+                state: "Bihar",
+                pincode: "800001",
+                totalAmount: totalAmount,
+                status: status,
+                paymentStatus: paymentStatus,
+                paidAmount: paidAmount,
+                createdAt: randomDate(),
+                createdBy: admin._id // Link to real admin
+            });
+        }
+
+        const createdBookings = await Booking.insertMany(bookings);
+        console.log(`\n🎉 Successfully created ${createdBookings.length} bookings using REAL product data!`);
 
         process.exit(0);
+
     } catch (error) {
         console.error('❌ Error:', error.message);
         process.exit(1);
     }
 }
 
-createTestBookings();
+createRealtimeBookings();
