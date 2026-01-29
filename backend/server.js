@@ -33,7 +33,7 @@ app.use(mongoSanitize()); // Prevent NoSQL injection
 
 // CORS configuration
 const corsOptions = {
-    origin: process.env.CORS_ORIGIN || 'http://localhost:8080',
+    origin: '*', // Allow all origins for production ease
     credentials: true,
     optionsSuccessStatus: 200
 };
