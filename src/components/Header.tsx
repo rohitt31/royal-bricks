@@ -110,13 +110,13 @@ const Header = () => {
 
         {/* Mobile Menu - Enhanced */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-white/98 dark:bg-slate-950/98 backdrop-blur-xl shadow-2xl border-t-2 border-orange-200 dark:border-orange-800 animate-fade-in">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-white dark:bg-slate-950 shadow-2xl border-t-2 border-orange-200 dark:border-orange-800 animate-fade-in max-h-[calc(100vh-80px)] overflow-y-auto">
             <div className="container py-6 flex flex-col gap-2">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-slate-700 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 font-semibold py-3 px-4 transition-all rounded-lg hover:bg-orange-50 dark:hover:bg-orange-950/30 border-l-4 border-transparent hover:border-orange-500"
+                  className="text-gray-900 dark:text-white hover:text-orange-600 dark:hover:text-orange-400 font-bold py-3 px-4 transition-all rounded-lg hover:bg-orange-50 dark:hover:bg-orange-950/30 border-l-4 border-transparent hover:border-orange-500"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
