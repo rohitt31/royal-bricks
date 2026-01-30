@@ -14,7 +14,4 @@ services:
     plan: free
     autoDeploy: true
 
-datastores:
-  # MongoDB Config (Optional: Render manages this or you use Atlas)
-  # For free tier, it's usually better to connect to MongoDB Atlas externally
-  # So we won't define a managed Redis/Postgres here, assuming Mongo Atlas usage.
+
