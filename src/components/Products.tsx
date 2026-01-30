@@ -15,8 +15,7 @@ const Products = () => {
         { icon: Thermometer, label: "Firing", value: "1100°C" },
         { icon: Layers, label: "Strength", value: ">100 kg/cm²" },
       ],
-      price: "₹8-10",
-      unit: "per brick",
+      image: "https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=400&q=80",
       popular: true,
     },
     {
@@ -29,8 +28,7 @@ const Products = () => {
         { icon: Thermometer, label: "Firing", value: "900°C" },
         { icon: Layers, label: "Strength", value: ">70 kg/cm²" },
       ],
-      price: "₹5-7",
-      unit: "per brick",
+      image: "https://plus.unsplash.com/premium_photo-1673629471167-73d09a05b38a?w=400&q=80",
       popular: false,
     },
     {
@@ -43,8 +41,7 @@ const Products = () => {
         { icon: Thermometer, label: "Curing", value: "Steam" },
         { icon: Layers, label: "Strength", value: ">75 kg/cm²" },
       ],
-      price: "₹6-8",
-      unit: "per brick",
+      image: "https://images.unsplash.com/photo-1628191012396-880c54178385?w=400&q=80",
       popular: false,
     },
   ];
@@ -61,7 +58,7 @@ const Products = () => {
           </h2>
           <div className="section-divider mb-4" />
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Choose from our range of high-quality bricks, manufactured to meet 
+            Choose from our range of high-quality bricks, manufactured to meet
             the highest standards of construction excellence.
           </p>
         </div>
@@ -79,7 +76,7 @@ const Products = () => {
                 Crafted with Excellence
               </h3>
               <p className="text-primary-foreground/80 max-w-md">
-                Each brick is carefully manufactured using traditional methods 
+                Each brick is carefully manufactured using traditional methods
                 combined with modern quality control.
               </p>
             </div>
@@ -91,16 +88,17 @@ const Products = () => {
           {products.map((product, index) => (
             <Card
               key={index}
-              className={`relative overflow-hidden hover-lift transition-all ${
-                product.popular ? "border-primary shadow-brick" : "border-border"
-              }`}
+              className={`relative overflow-hidden hover-lift transition-all ${product.popular ? "border-primary shadow-brick" : "border-border"
+                }`}
             >
+
+
               {product.popular && (
-                <div className="absolute top-4 right-4 bg-gradient-amber text-secondary-foreground text-xs font-bold px-3 py-1 rounded-full">
+                <div className="absolute top-4 right-4 bg-gradient-amber text-secondary-foreground text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">
                   Most Popular
                 </div>
               )}
-              
+
               <CardHeader className="pb-4">
                 <CardTitle className="flex flex-col">
                   <span className="font-display text-xl">{product.name}</span>
@@ -130,13 +128,9 @@ const Products = () => {
                   ))}
                 </div>
 
-                {/* Price */}
-                <div className="flex items-end justify-between pt-4 border-t border-border">
-                  <div>
-                    <span className="text-2xl font-bold text-primary">{product.price}</span>
-                    <span className="text-sm text-muted-foreground ml-1">{product.unit}</span>
-                  </div>
-                  <Button variant={product.popular ? "default" : "outline"} className={product.popular ? "bg-gradient-brick" : ""}>
+                {/* Action */}
+                <div className="pt-4 mt-auto">
+                  <Button asChild className={`w-full ${product.popular ? "bg-gradient-brick" : ""}`} variant={product.popular ? "default" : "outline"}>
                     <a href="#booking">Order Now</a>
                   </Button>
                 </div>

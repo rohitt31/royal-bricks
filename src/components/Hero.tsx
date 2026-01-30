@@ -4,9 +4,9 @@ import heroBg from "@/assets/hero-bg.jpg";
 
 const Hero = () => {
   const stats = [
-    { icon: Building2, value: "15+", label: "Years Experience" },
-    { icon: Award, value: "50L+", label: "Bricks Delivered" },
-    { icon: TrendingUp, value: "500+", label: "Happy Clients" },
+    { icon: Building2, value: "Est.", label: "2025" },
+    { icon: Award, value: "100%", label: "Quality Assured" },
+    { icon: TrendingUp, value: "Modern", label: "Technology" },
   ];
 
   return (
@@ -41,8 +41,8 @@ const Hero = () => {
           </p>
 
           <p className="text-lg text-primary-foreground/80 mb-8 max-w-xl animate-fade-up" style={{ animationDelay: "0.2s" }}>
-            Premium quality bricks manufactured with traditional expertise and modern technology. 
-            Trusted by builders across Bihar for over 15 years.
+            Premium quality bricks manufactured with traditional expertise and modern technology.
+            Trusted by builders across Bihar for premium quality.
           </p>
 
           {/* CTAs */}

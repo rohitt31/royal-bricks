@@ -16,7 +16,7 @@ const About = () => {
     {
       icon: Users,
       title: "Expert Team",
-      description: "Skilled craftsmen with decades of experience",
+      description: "Skilled craftsmen dedicated to quality",
     },
   ];
 
@@ -41,9 +41,9 @@ const About = () => {
           </h2>
           <div className="section-divider mb-4" />
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Royal Bricks has been serving the construction industry with premium quality 
-            bricks since 2009. Our commitment to quality and customer satisfaction has 
-            made us the preferred choice for builders across the region.
+            Royal Bricks is a modern brick manufacturing facility established in 2025.
+            We are committed to delivering premium quality bricks using state-of-the-art technology
+            for builders across the region.
           </p>
         </div>
 
@@ -57,16 +57,16 @@ const About = () => {
                 className="w-full h-[400px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brick-900/60 to-transparent" />
-              
+
               {/* Floating Card */}
               <div className="absolute bottom-6 left-6 right-6 glass-card rounded-xl p-4">
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-full bg-gradient-brick flex items-center justify-center shadow-brick">
-                    <span className="text-primary-foreground font-display font-bold text-xl">15+</span>
+                    <span className="text-primary-foreground font-display font-bold text-xl">New</span>
                   </div>
                   <div>
-                    <p className="font-display font-semibold text-foreground">Years of Excellence</p>
-                    <p className="text-sm text-muted-foreground">Manufacturing Premium Bricks</p>
+                    <p className="font-display font-semibold text-foreground">Established 2025</p>
+                    <p className="text-sm text-muted-foreground">Modern Brick Manufacturing</p>
                   </div>
                 </div>
               </div>
@@ -82,9 +82,9 @@ const About = () => {
               Pro. Abhishek Kumar
             </h3>
             <p className="text-muted-foreground mb-6">
-              Under the visionary leadership of Pro. Abhishek Kumar, Royal Bricks has 
-              grown from a local kiln to one of the most trusted brick manufacturing 
-              companies in Bihar. Our dedication to quality and innovation drives us 
+              Under the visionary leadership of Pro. Abhishek Kumar, Royal Bricks
+              brings fresh innovation to the brick manufacturing industry in Bihar.
+              Our dedication to quality and modern production methods drives us
               to deliver the best products to our customers.
             </p>
 
