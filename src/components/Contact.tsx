@@ -33,8 +33,8 @@ const Contact = () => {
     {
       icon: MapPin,
       label: "Address",
-      value: "जफराबाद हॉस्पिटल, देसरी (वैशाली), Bihar",
-      href: "https://maps.google.com/?q=Desri,Vaishali,Bihar",
+      value: "Jafraabaad Hospital, Desri (Vaishali), Bihar",
+      href: "https://www.google.com/maps/search/?api=1&query=25.676528,85.421083",
     },
     {
       icon: Globe,
@@ -139,6 +139,20 @@ const Contact = () => {
                 "Quality is not just a word for us, it's our commitment to every customer."
               </p>
             </div>
+
+
+            {/* Location Map */}
+            <div className="mt-8 rounded-2xl overflow-hidden shadow-xl border border-border h-[300px] animate-fade-up" style={{ animationDelay: "0.1s" }}>
+              <iframe
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                src="https://maps.google.com/maps?q=25.676528,85.421083&hl=en&z=14&output=embed"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </div>
 
           {/* Contact Form */}
@@ -217,7 +231,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 
