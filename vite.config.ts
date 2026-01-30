@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // base: "/royal-bricks/", // UNCOMMENT THIS LINE IF DEPLOYING TO GITHUB PAGES (replace 'royal-bricks' with your repo name)
+  base: "/royal-bricks/",
   server: {
     host: "::",
     port: 8080,
