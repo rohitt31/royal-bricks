@@ -53,7 +53,7 @@ const Hero = () => {
                 <ArrowRight className="w-5 h-5" />
               </a>
             </Button>
-            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 text-lg px-8">
+            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-brick-900 text-lg px-8">
               <a href="#contact">Get Quote</a>
             </Button>
           </div>
