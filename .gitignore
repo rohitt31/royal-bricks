@@ -127,3 +127,4 @@ qa-reports/
 .DS_Store
 .idea/
 lint-output.txt
+*.md
