@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/",  // Changed from "/royal-bricks/" for local development
+  base: mode === 'production' ? '/royal-bricks/' : '/',  // Use subdirectory for production, root for dev
   server: {
     host: "::",
     port: 8080,
