@@ -99,8 +99,7 @@ productSchema.pre('save', function (next) {
 });
 
 // Indexes
-productSchema.index({ name: 1 });
-productSchema.index({ slug: 1 });
+
 productSchema.index({ category: 1, isActive: 1 });
 productSchema.index({ isActive: 1, displayOrder: 1 });
 
