@@ -41,7 +41,7 @@ const About = () => {
           </h2>
           <div className="section-divider mb-4" />
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Royal Bricks is a modern brick manufacturing facility established in 2030.
+            Royal Bricks is a modern brick manufacturing facility established in 2025.
             We are committed to delivering premium quality bricks using state-of-the-art technology
             for builders across the region.
           </p>
