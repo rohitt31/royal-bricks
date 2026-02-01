@@ -16,6 +16,21 @@ export const removeToken = () => {
     localStorage.removeItem('adminToken');
 };
 
+// Check backend connection health
+export const checkBackendConnection = async (): Promise<boolean> => {
+    try {
+        const baseUrl = API_URL.replace('/api', '');
+        const response = await fetch(`${baseUrl}/health`, {
+            method: 'GET',
+            signal: AbortSignal.timeout(5000) // 5 second timeout
+        });
+        return response.ok;
+    } catch (error) {
+        console.warn('Backend connection check failed:', error);
+        return false;
+    }
+};
+
 // API request helper
 const apiRequest = async (endpoint: string, options: RequestInit = {}) => {
     const token = getToken();

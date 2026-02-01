@@ -17,6 +17,9 @@ const Hero = () => {
           src={heroBg}
           alt="Royal Bricks Manufacturing"
           className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-brick-900/90 via-brick-800/70 to-transparent" />
       </div>

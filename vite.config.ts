@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/royal-bricks/",
+  base: "/",  // Changed from "/royal-bricks/" for local development
   server: {
     host: "::",
     port: 8080,

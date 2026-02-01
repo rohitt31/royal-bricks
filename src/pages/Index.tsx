@@ -1,25 +1,41 @@
+import { lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Products from "@/components/Products";
-import Process from "@/components/Process";
-import BookingForm from "@/components/BookingForm";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import ConnectionStatus from "@/components/ConnectionStatus";
+
+// Lazy load components that are below the fold
+const About = lazy(() => import("@/components/About"));
+const Products = lazy(() => import("@/components/Products"));
+const Process = lazy(() => import("@/components/Process"));
+const BookingForm = lazy(() => import("@/components/BookingForm"));
+const Contact = lazy(() => import("@/components/Contact"));
+const Footer = lazy(() => import("@/components/Footer"));
+
+// Simple loading component
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center py-20">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
+  </div>
+);
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <ConnectionStatus />
       <Header />
       <main>
         <Hero />
-        <About />
-        <Products />
-        <Process />
-        <BookingForm />
-        <Contact />
+        <Suspense fallback={<LoadingFallback />}>
+          <About />
+          <Products />
+          <Process />
+          <BookingForm />
+          <Contact />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={<LoadingFallback />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

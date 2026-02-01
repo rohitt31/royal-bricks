@@ -8,6 +8,7 @@ import morgan from 'morgan';
 import compression from 'compression';
 import connectDB from './config/database.js';
 import { errorHandler, notFound } from './middleware/errorHandler.js';
+import validateEnv from './utils/validateEnv.js';
 
 // Import routes
 import authRoutes from './routes/authRoutes.js';
@@ -17,6 +18,9 @@ import productRoutes from './routes/productRoutes.js';
 
 // Load environment variables
 dotenv.config();
+
+// Validate environment variables
+validateEnv();
 
 // Connect to database
 connectDB();
