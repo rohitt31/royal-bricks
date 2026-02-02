@@ -109,7 +109,7 @@ const Auth = () => {
               <Input
                 id="email"
                 type="email"
-                placeholder="akuph95@gmail.com"
+                placeholder="admin@royalbricks.com"
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
                 className="border-2 border-orange-100 focus:border-orange-400 transition-colors"

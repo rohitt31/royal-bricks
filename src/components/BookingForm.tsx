@@ -185,7 +185,7 @@ const BookingForm = () => {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="your@email.com"
+                  placeholder="contact@royalbricks.com"
                   value={formData.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                 />
