@@ -72,7 +72,7 @@ const BookingForm = () => {
         setBookingNumber(response.data.booking.bookingNumber);
         toast({
           title: "Booking Submitted! ✓",
-          description: `Your booking ${response.data.booking.bookingNumber} has been received. Total: ₹${totalAmount.toLocaleString()}`,
+          description: `Your booking ${response.data.booking.bookingNumber} has been received. Our team will contact you shortly.`,
         });
         setIsSubmitted(true);
       }
