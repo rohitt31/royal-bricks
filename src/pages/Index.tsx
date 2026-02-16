@@ -1,7 +1,6 @@
 import { lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import ConnectionStatus from "@/components/ConnectionStatus";
 
 // Lazy load components that are below the fold
 const About = lazy(() => import("@/components/About"));
@@ -21,7 +20,6 @@ const LoadingFallback = () => (
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <ConnectionStatus />
       <Header />
       <main>
         <Hero />

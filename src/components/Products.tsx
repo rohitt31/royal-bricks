@@ -32,16 +32,16 @@ const Products = () => {
       popular: false,
     },
     {
-      name: "Fly Ash Bricks",
-      hindi: "फ्लाई ऐश ईंट",
-      description: "Eco-friendly bricks made from fly ash. Lightweight, uniform, and excellent for modern construction.",
+      name: "Medium Class Bricks",
+      hindi: "मध्यम श्रेणी ईंट",
+      description: "Economical bricks suitable for non-load bearing walls and temporary structures.",
       specs: [
-        { icon: Ruler, label: "Size", value: "230×110×75mm" },
-        { icon: Weight, label: "Weight", value: "2.5-2.8 kg" },
-        { icon: Thermometer, label: "Curing", value: "Steam" },
-        { icon: Layers, label: "Strength", value: ">75 kg/cm²" },
+        { icon: Ruler, label: "Size", value: "250×125×75mm" },
+        { icon: Weight, label: "Weight", value: "3.4-3.6 kg" },
+        { icon: Thermometer, label: "Firing", value: "850°C" },
+        { icon: Layers, label: "Strength", value: ">50 kg/cm²" },
       ],
-      image: "https://images.unsplash.com/photo-1628191012396-880c54178385?w=400&q=80",
+      image: "https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=400&q=80",
       popular: false,
     },
   ];
@@ -88,8 +88,7 @@ const Products = () => {
           {products.map((product, index) => (
             <Card
               key={index}
-              className={`relative overflow-hidden hover-lift transition-all ${product.popular ? "border-primary shadow-brick" : "border-border"
-                }`}
+              className="relative overflow-hidden hover-lift transition-all border-primary shadow-brick"
             >
 
 
@@ -130,7 +129,7 @@ const Products = () => {
 
                 {/* Action */}
                 <div className="pt-4 mt-auto">
-                  <Button asChild className={`w-full ${product.popular ? "bg-gradient-brick" : ""}`} variant={product.popular ? "default" : "outline"}>
+                  <Button asChild className="w-full bg-gradient-brick" variant="default">
                     <a href="#booking">Order Now</a>
                   </Button>
                 </div>

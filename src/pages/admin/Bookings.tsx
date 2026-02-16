@@ -111,7 +111,8 @@ const Bookings = () => {
   const brickTypeLabels: Record<string, string> = {
     'first-class': 'First Class',
     'second-class': 'Second Class',
-    'fly-ash': 'Fly Ash',
+    'medium-class': 'Medium Class',
+    'fly-ash': 'Fly Ash', // Legacy support
   };
 
   const fetchBookings = async () => {
@@ -338,7 +339,7 @@ const Bookings = () => {
                     <SelectItem value="all">All Types</SelectItem>
                     <SelectItem value="first-class">First Class</SelectItem>
                     <SelectItem value="second-class">Second Class</SelectItem>
-                    <SelectItem value="fly-ash">Fly Ash</SelectItem>
+                    <SelectItem value="medium-class">Medium Class</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

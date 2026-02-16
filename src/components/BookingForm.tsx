@@ -39,7 +39,7 @@ const BookingForm = () => {
     const prices: Record<string, number> = {
       'first-class': 10,
       'second-class': 8,
-      'fly-ash': 7,
+      'medium-class': 7,
       'red-brick': 9,
     };
     return (prices[brickType] || 10) * quantity;
@@ -206,7 +206,7 @@ const BookingForm = () => {
                     <SelectContent>
                       <SelectItem value="first-class">First Class Bricks</SelectItem>
                       <SelectItem value="second-class">Second Class Bricks</SelectItem>
-                      <SelectItem value="fly-ash">Fly Ash Bricks</SelectItem>
+                      <SelectItem value="medium-class">Medium Class Bricks</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
